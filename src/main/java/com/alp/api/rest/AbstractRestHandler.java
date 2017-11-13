@@ -1,6 +1,6 @@
 package com.alp.api.rest;
 
-import com.alp.domain.RestErrorInfo;
+import com.alp.model.RestErrorInfo;
 import com.alp.exception.DataFormatException;
 import com.alp.exception.ResourceNotFoundException;
 import org.slf4j.Logger;

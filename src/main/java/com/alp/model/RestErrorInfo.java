@@ -1,4 +1,4 @@
-package com.alp.domain;
+package com.alp.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

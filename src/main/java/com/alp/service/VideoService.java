@@ -2,7 +2,7 @@ package com.alp.service;
 
 
 import com.alp.dao.jpa.VideoRepository;
-import com.alp.domain.Video;
+import com.alp.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.actuate.metrics.GaugeService;
@@ -31,8 +31,8 @@ public class VideoService {
         return videoRepository.save(video);
     }
 
-    public Video getVideo(long id) {
-        return videoRepository.findOne(id);
+    public Video getVideo(String videoId) {
+        return videoRepository.findVideoByVideoId(videoId);
     }
 
     public void updateVideo(Video video) {
@@ -40,7 +40,7 @@ public class VideoService {
     }
 
     public void deleteVideo(Long id) {
-        videoRepository.delete(id);
+        //videoRepository.delete(id);
     }
 
     public Page<Video> getAllVideos(Integer page, Integer size) {

@@ -1,4 +1,4 @@
-package com.alp.domain;
+package com.alp.model;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Video {
+
     @Id
-    @GeneratedValue()
-    private long id;
+    private String videoId;
 
     @Column()
     private String videoTitle;
@@ -30,12 +30,12 @@ public class Video {
     public Video() {
     }
 
-    public long getId() {
-        return id;
+    public String getVideoId() {
+        return videoId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
     public String getVideoTitle() {
@@ -91,7 +91,7 @@ public class Video {
     @Override
     public String toString() {
         return "Video{" +
-                "videoId='" + id + '\'' +
+                "videoId='" + videoId + '\'' +
                 ", videoTitle='" + videoTitle + '\'' +
                 ", videoDescription='" + videoDescription + '\'' +
                 ", videoDuration='" + videoDuration + '\'' +
