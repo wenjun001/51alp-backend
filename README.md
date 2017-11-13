@@ -54,10 +54,10 @@ http://localhost:8091/info
 http://localhost:8091/metrics
 ```
 
-### Create a hotel resource
+### Create a video resource
 
 ```
-POST /v1/hotels
+POST /v1/videos
 Accept: application/json
 Content-Type: application/json
 
@@ -69,22 +69,22 @@ Content-Type: application/json
 }
 
 RESPONSE: HTTP 201 (Created)
-Location header: http://localhost:8080/v1/hotels/1
+Location header: http://localhost:8080/v1/videos/1
 ```
 
-### Retrieve a paginated list of hotels
+### Retrieve a paginated list of videos
 
 ```
-http://localhost:8080/v1/hotels?page=0&size=10
+http://localhost:8080/v1/videos?page=0&size=10
 
 Response: HTTP 200
 Content: paginated list 
 ```
 
-### Update a hotel resource
+### Update a video resource
 
 ```
-PUT /v1/hotels/1
+PUT /v1/videos/1
 Accept: application/json
 Content-Type: application/json
 
