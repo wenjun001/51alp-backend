@@ -27,7 +27,7 @@ Once the application runs you should see something like this
 ## About the Service
 
 The service is 51 ALP app REST service. 
-More interestingly, you can start calling some of the operational endpoints (see full list below) like ```/metrics``` and ```/health``` (these are available on **port 909**)
+More interestingly, you can start calling some of the operational endpoints (see full list below) like ```/metrics``` and ```/health``` (these are available on **port 8091**)
 
 You can use this sample service to understand the conventions and configurations that allow you to create a DB-backed RESTful service. Once you understand and get comfortable with the sample app you can add your own services following the same patterns as the sample service.
  
@@ -61,12 +61,6 @@ POST /v1/videos
 Accept: application/json
 Content-Type: application/json
 
-{
-"name" : "Beds R Us",
-"description" : "Very basic, small rooms but clean",
-"city" : "Santa Ana",
-"rating" : 2
-}
 
 RESPONSE: HTTP 201 (Created)
 Location header: http://localhost:8080/v1/videos/1
@@ -88,12 +82,6 @@ PUT /v1/videos/1
 Accept: application/json
 Content-Type: application/json
 
-{
-"name" : "Beds R Us",
-"description" : "Very basic, small rooms but clean",
-"city" : "Santa Ana",
-"rating" : 3
-}
 
 RESPONSE: HTTP 204 (No Content)
 ```
