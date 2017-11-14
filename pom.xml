@@ -119,6 +119,17 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-core</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-vod</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

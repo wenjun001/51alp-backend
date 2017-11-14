@@ -27,6 +27,9 @@ public class Video {
     @Column()
     private String videoCateId;
 
+
+
+
     public Video() {
     }
 

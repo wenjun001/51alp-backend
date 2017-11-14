@@ -1,8 +1,15 @@
 package com.alp.service;
 
 
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.exceptions.ServerException;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
+import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.alp.dao.jpa.VideoRepository;
 import com.alp.model.Video;
+import com.alp.model.VideoAuthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.actuate.metrics.GaugeService;
@@ -15,6 +22,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class VideoService {
+
+
+    DefaultProfile profile;
+    DefaultAcsClient client;
+
     @Autowired
     private VideoRepository videoRepository;
 
@@ -25,6 +37,25 @@ public class VideoService {
     GaugeService gaugeService;
 
     public VideoService() {
+        profile = DefaultProfile.getProfile("cn-shanghai", "LTAIDLQ49JsUXHTM", "4ibUm26TSF1KCo1HgPls6ZbB5X2Ymd");
+        client = new DefaultAcsClient(profile);
+    }
+
+    public VideoAuthInfo getVideoAuthInfo(String vidoId){
+        GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
+        request.setVideoId(vidoId);
+        GetVideoPlayAuthResponse response = null;
+        try {
+            response = client.getAcsResponse(request);
+        } catch (ServerException e) {
+            e.printStackTrace();
+            throw new RuntimeException("GetVideoPlayAuthRequest Server failed");
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new RuntimeException("GetVideoPlayAuthRequest Client failed");
+        }
+        VideoAuthInfo videoAuthInfo = new VideoAuthInfo(vidoId,response.getPlayAuth());
+        return videoAuthInfo;
     }
 
     public Video createVideo(Video video) {
