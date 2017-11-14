@@ -5,6 +5,8 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.vod.model.v20170321.CreateUploadVideoRequest;
+import com.aliyuncs.vod.model.v20170321.CreateUploadVideoResponse;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.alp.dao.jpa.VideoRepository;
@@ -22,9 +24,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class VideoService {
-
-
-    DefaultProfile profile;
+    private static String accessKeyId = "LTAIDLQ49JsUXHTM";
+    private static String accessKeySecret = "4ibUm26TSF1KCo1HgPls6ZbB5X2Ymd";
     DefaultAcsClient client;
 
     @Autowired
@@ -37,8 +38,40 @@ public class VideoService {
     GaugeService gaugeService;
 
     public VideoService() {
-        profile = DefaultProfile.getProfile("cn-shanghai", "LTAIDLQ49JsUXHTM", "4ibUm26TSF1KCo1HgPls6ZbB5X2Ymd");
-        client = new DefaultAcsClient(profile);
+        client =  new DefaultAcsClient(
+                DefaultProfile.getProfile("cn-shanghai",accessKeyId,accessKeySecret));
+    }
+
+
+    public VideoAuthInfo createUploadVideo(Video video){
+        CreateUploadVideoRequest request = new CreateUploadVideoRequest();
+        CreateUploadVideoResponse response = null;
+        try {
+              /*必选，视频源文件名称（必须带后缀, 支持 ".3gp", ".asf", ".avi", ".dat", ".dv", ".flv", ".f4v", ".gif", ".m2t", ".m3u8", ".m4v", ".mj2", ".mjpeg", ".mkv", ".mov", ".mp4", ".mpe", ".mpg", ".mpeg", ".mts", ".ogg", ".qt", ".rm", ".rmvb", ".swf", ".ts", ".vob", ".wmv", ".webm"".aac", ".ac3", ".acm", ".amr", ".ape", ".caf", ".flac", ".m4a", ".mp3", ".ra", ".wav", ".wma"）*/
+            request.setFileName(video.getVideoFileName());
+            //必选，视频标题
+            request.setTitle(video.getVideoTitle());
+            //可选，分类ID
+            request.setCateId(0);
+            ////可选，视频标签，多个用逗号分隔
+            // request.setTags("标签1,标签2");
+            //可选，视频描述
+             request.setDescription(video.getVideoDescription());
+            //可选，视频源文件字节数
+            //request.setFileSize(0);
+            response = client.getAcsResponse(request);
+        } catch (ServerException e) {
+            System.out.println("CreateUploadVideoRequest Server Exception:");
+            e.printStackTrace();
+        } catch (ClientException e) {
+            System.out.println("CreateUploadVideoRequest Client Exception:");
+            e.printStackTrace();
+        }
+
+        VideoAuthInfo videoAuthInfo = new VideoAuthInfo(response.getVideoId(),response.getUploadAddress(),response.getUploadAuth());
+        return videoAuthInfo;
+
+
     }
 
     public VideoAuthInfo getVideoAuthInfo(String vidoId){

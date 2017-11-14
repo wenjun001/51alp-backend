@@ -15,6 +15,8 @@ public class Video {
     private String videoId;
 
     @Column()
+    private String videoFileName;
+    @Column()
     private String videoTitle;
     @Column()
     private String videoDescription;
@@ -31,6 +33,14 @@ public class Video {
 
 
     public Video() {
+    }
+
+    public String getVideoFileName() {
+        return videoFileName;
+    }
+
+    public void setVideoFileName(String videoFileName) {
+        this.videoFileName = videoFileName;
     }
 
     public String getVideoId() {

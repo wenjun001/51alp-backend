@@ -55,6 +55,7 @@ public class VideoController extends AbstractRestHandler {
 
     @RequestMapping(value = "/{videoId}/authInfo",
             method = RequestMethod.GET,
+
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get a single video.", notes = "You have to provide a valid video VideoID.")
@@ -67,6 +68,20 @@ public class VideoController extends AbstractRestHandler {
         checkResourceFound(videoAuthInfo);
         return videoAuthInfo;
     }
+
+    @RequestMapping(value = "/createUploadVideo",
+            method = RequestMethod.PUT,
+            consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "upload a video resource.", notes = "Returns the URL of the new resource in the Location header.")
+    public VideoAuthInfo uploadVideo(@RequestBody Video video,
+                            HttpServletRequest request, HttpServletResponse response) {
+        VideoAuthInfo videoAuthInfo = this.videoService.createUploadVideo(video);
+        checkResourceFound(videoAuthInfo);
+        return videoAuthInfo;
+    }
+
 
 
     @RequestMapping(value = "/{videoId}",
