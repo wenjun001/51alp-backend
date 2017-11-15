@@ -3,14 +3,14 @@ spring.jmx:
 
 spring.datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1/51alp
+    url: jdbc:mysql://mysql/51alp
     username: root
     password: wma
 
 spring.jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQLInnoDBDialect
-      ddl-auto: update # todo: in non-dev environments, comment this out:
+     # ddl-auto: update # todo: in non-dev environments, comment this out:
       show-sql: true
 
 
