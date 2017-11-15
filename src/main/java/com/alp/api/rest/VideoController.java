@@ -2,6 +2,7 @@ package com.alp.api.rest;
 
 import com.alp.model.Video;
 import com.alp.exception.DataFormatException;
+import com.alp.model.VideoAuthInfo;
 import com.alp.service.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,6 +52,54 @@ public class VideoController extends AbstractRestHandler {
         checkResourceFound(video);
         return video;
     }
+
+    @RequestMapping(value = "/{videoId}/authInfo",
+            method = RequestMethod.GET,
+
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get a single video.", notes = "You have to provide a valid video VideoID.")
+    public
+    @ResponseBody
+    VideoAuthInfo getVideoAuthInfo(@ApiParam(value = "The VideoID of the video.", required = true)
+                   @PathVariable("videoId") String videoId,
+                   HttpServletRequest request, HttpServletResponse response) throws Exception {
+        VideoAuthInfo videoAuthInfo = this.videoService.getVideoAuthInfo(videoId);
+        checkResourceFound(videoAuthInfo);
+        return videoAuthInfo;
+    }
+
+
+    @RequestMapping(value = "/{videoId}/refreshUploadVideo",
+            method = RequestMethod.GET,
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "refresh uploading a single video.", notes = "You have to provide a valid video VideoID.")
+    public
+    @ResponseBody
+    VideoAuthInfo refreshUploadVideo(@ApiParam(value = "The VideoID of the video.", required = true)
+                                   @PathVariable("videoId") String videoId,
+                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
+        VideoAuthInfo videoAuthInfo = this.videoService.refreshUploadVideo(videoId);
+        checkResourceFound(videoAuthInfo);
+        return videoAuthInfo;
+    }
+
+
+    @RequestMapping(value = "/createUploadVideo",
+            method = RequestMethod.PUT,
+            consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "upload a video resource.", notes = "Returns the URL of the new resource in the Location header.")
+    public VideoAuthInfo uploadVideo(@RequestBody Video video,
+                            HttpServletRequest request, HttpServletResponse response) {
+        VideoAuthInfo videoAuthInfo = this.videoService.createUploadVideo(video);
+        checkResourceFound(videoAuthInfo);
+        return videoAuthInfo;
+    }
+
+
 
     @RequestMapping(value = "/{videoId}",
             method = RequestMethod.PUT,
