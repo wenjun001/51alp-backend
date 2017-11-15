@@ -17,8 +17,8 @@
 
 	<properties>
 		<start-class>com.alp.Application</start-class>
+		<docker.image.prefix>mydocker</docker.image.prefix>
 	</properties>
-
 	<dependencies>
 
 		<dependency>
@@ -160,23 +160,11 @@
 			</plugin>
 
 			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.15.3</version>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.3.4</version>
 				<configuration>
-					<dockerHost>http://127.0.0.1:2375</dockerHost>
-					<verbose>true</verbose>
-					<images>
-						<image>
-							<name>springframeworkguru/masteringthymeleaf</name>
-							<build>
-								<dockerFile>Dockerfile</dockerFile>
-								<assembly>
-									<descriptorRef>artifact</descriptorRef>
-								</assembly>
-							</build>
-						</image>
-					</images>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
 				</configuration>
 			</plugin>
 		</plugins>

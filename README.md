@@ -2,7 +2,28 @@
 
 This is a  51ALP backend restful API.
 
-## How to Run 
+## How to Run
+
+
+Cluster Model (run on Docker Container)
+
+Build Docker images
+
+mvn install dockerfile:build
+
+Firstly run  mysql image
+
+docker run -p3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=wma -d mysql
+
+Secondly run our app
+
+docker run -p 8080:8080 --link mysql:mysql  -t 51alp-backend
+
+
+
+
+
+Single Model
 
 This application is packaged as a war which has Tomcat 8 embedded. No Tomcat or JBoss installation is necessary. You run it using the ```java -jar``` command.
 
@@ -42,6 +63,12 @@ Here is what this little application demonstrates:
 * Automatic CRUD functionality against the data source using Spring *Repository* pattern
 * Demonstrates MockMVC test framework with associated libraries
 * All APIs are "self-documented" by Swagger2 using annotations 
+
+
+### To view Swagger 2 API docs
+
+Run the server and browse to localhost:8080/swagger-ui.html
+
 
 Here are some endpoints you can call:
 
@@ -85,11 +112,9 @@ Content-Type: application/json
 
 RESPONSE: HTTP 204 (No Content)
 ```
-### To view Swagger 2 API docs
 
-Run the server and browse to localhost:8080/swagger-ui.html
 
-# About Spring Boot
+# Supported By Spring Boot
 
 Spring Boot is an "opinionated" application bootstrapping framework that makes it easy to create new RESTful services (among other types of applications). It provides many of the usual Spring facilities that can be configured easily usually without any XML. In addition to easy set up of Spring Controllers, Spring Data, etc. Spring Boot comes with the Actuator module that gives the application the following endpoints helpful in monitoring and operating the service:
 

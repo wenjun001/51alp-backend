@@ -1,0 +1,2 @@
+INSERT INTO video (video_id,video_cate_id,video_coverurl,video_description,video_duration,video_file_name,video_status,video_title) VALUES ('ssvv','','cc',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO video (video_id,video_cate_id,video_coverurl,video_description,video_duration,video_file_name,video_status,video_title) VALUES ('zz',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
