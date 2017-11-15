@@ -1,23 +1,21 @@
 # 51 ALP backend 
 
-This is a  51ALP backend restful API.
+This is a 51ALP APP backend restful API Server.
 
 ## How to Run
 
 
 Cluster Model (run on Docker Container)
 
-Build Docker images
-
-mvn install dockerfile:build
+* Build Docker images : mvn install dockerfile:build
 
 Firstly run  mysql image
 
-docker run -p3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=wma -d mysql
+* docker run -p3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=wma -d mysql
 
 Secondly run our app
 
-docker run -p 8080:8080 --link mysql:mysql  -t 51alp-backend
+* docker run -p 8080:8080 --link mysql:mysql  -t 51alp-backend
 
 
 
@@ -48,6 +46,7 @@ Once the application runs you should see something like this
 ## About the Service
 
 The service is 51 ALP app REST service. 
+
 More interestingly, you can start calling some of the operational endpoints (see full list below) like ```/metrics``` and ```/health``` (these are available on **port 8091**)
 
 You can use this sample service to understand the conventions and configurations that allow you to create a DB-backed RESTful service. Once you understand and get comfortable with the sample app you can add your own services following the same patterns as the sample service.
@@ -67,7 +66,7 @@ Here is what this little application demonstrates:
 
 ### To view Swagger 2 API docs
 
-Run the server and browse to localhost:8080/swagger-ui.html
+Run the server and browse to <ip>:8080/swagger-ui.html
 
 
 Here are some endpoints you can call:
@@ -75,10 +74,10 @@ Here are some endpoints you can call:
 ### Get information about system health, configurations, etc.
 
 ```
-http://localhost:8091/env
-http://localhost:8091/health
-http://localhost:8091/info
-http://localhost:8091/metrics
+http://<ip>:8091/env
+http://<ip>:8091/health
+http://<ip>:8091/info
+http://<ip>:8091/metrics
 ```
 
 ### Create a video resource
@@ -90,13 +89,13 @@ Content-Type: application/json
 
 
 RESPONSE: HTTP 201 (Created)
-Location header: http://localhost:8080/v1/videos/1
+Location header: http://<ip>:8080/v1/videos/1
 ```
 
 ### Retrieve a paginated list of videos
 
 ```
-http://localhost:8080/v1/videos?page=0&size=10
+http://<ip>:8080/v1/videos?page=0&size=10
 
 Response: HTTP 200
 Content: paginated list 
