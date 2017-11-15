@@ -35,7 +35,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         String description = "51alp backend API";
         return new ApiInfoBuilder()
-                .title("REST API For 51APP APP")
+                .title("REST API For 51ALP APP")
                 .description(description)
                 .version("1.0")
                 .build();
