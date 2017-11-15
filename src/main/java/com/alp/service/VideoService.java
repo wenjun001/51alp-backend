@@ -5,10 +5,7 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.vod.model.v20170321.CreateUploadVideoRequest;
-import com.aliyuncs.vod.model.v20170321.CreateUploadVideoResponse;
-import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
-import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
+import com.aliyuncs.vod.model.v20170321.*;
 import com.alp.dao.jpa.VideoRepository;
 import com.alp.model.Video;
 import com.alp.model.VideoAuthInfo;
@@ -40,6 +37,24 @@ public class VideoService {
     public VideoService() {
         client =  new DefaultAcsClient(
                 DefaultProfile.getProfile("cn-shanghai",accessKeyId,accessKeySecret));
+    }
+
+    public VideoAuthInfo refreshUploadVideo(String videoId){
+
+        RefreshUploadVideoRequest request = new RefreshUploadVideoRequest();
+        RefreshUploadVideoResponse response = null;
+        try {
+            request.setVideoId(videoId);
+            response = client.getAcsResponse(request);
+        } catch (ServerException e) {
+            System.out.println("RefreshUploadVideoRequest Server Exception:");
+            e.printStackTrace();
+        } catch (ClientException e) {
+            System.out.println("RefreshUploadVideoRequest Client Exception:");
+            e.printStackTrace();
+        }
+        VideoAuthInfo videoAuthInfo = new VideoAuthInfo(videoId,"",response.getUploadAuth());
+        return videoAuthInfo;
     }
 
 
